@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.example.scheduler_v2.entity.Schedule.createSchedule;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -22,8 +24,8 @@ public class ScheduleService {
 
         Member findMember = memberRepository.findByIdOrElseThrow(memberId);
 
-        Schedule schedule = new Schedule(title, description);
-        schedule.setMember(findMember);
+        // 피드백) setter -> 생성 메서드를 사용하여 캡슐화 보장
+        Schedule schedule = createSchedule(title, description, findMember);
 
         scheduleRepository.save(schedule);
 
