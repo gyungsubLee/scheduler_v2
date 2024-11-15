@@ -51,4 +51,11 @@ public class ScheduleController {
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        scheduleService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 반환값이 없기 때문에 204 설정
+    }
 }
