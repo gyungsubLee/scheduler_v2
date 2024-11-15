@@ -28,8 +28,16 @@ public class MemberController {
         return new ResponseEntity<>(signUpResponseDto, HttpStatus.CREATED);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody LoginRequestDto requestDto) {
+
+        memberService.login(requestDto.getEmail(), requestDto.getPassword());
+
+        return ResponseEntity.ok().body("정상적으로 로그인 되었습니다.");
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<MemberResponseDto> findById(@PathVariable Long id){
+    public ResponseEntity<MemberResponseDto> findById(@PathVariable Long id) {
 
         MemberResponseDto memberResponseDto = memberService.findById(id);
 

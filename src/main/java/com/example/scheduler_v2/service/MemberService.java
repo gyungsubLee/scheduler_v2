@@ -7,7 +7,9 @@ import com.example.scheduler_v2.repository.MemberRepository;
 import com.example.scheduler_v2.util.PasswordEncoder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,15 @@ public class MemberService {
 
         return new SignUpResponseDto(saveMember.getId(), saveMember.getUsername(), saveMember.getEmail());
     }
+
+    public void login(String email, String password) {
+        Member findMember = memberRepository.findByEmailOrElseThrow(email);
+
+        if(!PasswordEncoder.matches(password, findMember.getPassword())){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 
     public MemberResponseDto findById(Long id) {
         Member findMember = memberRepository.findByIdOrElseThrow(id);
@@ -49,4 +60,6 @@ public class MemberService {
 
         memberRepository.delete(findMember);
     }
+
+
 }
