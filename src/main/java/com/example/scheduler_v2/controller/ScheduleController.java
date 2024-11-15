@@ -19,6 +19,7 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
+    // FIXME: 로그인 필터 등록 후, 포스트맨 테스트 실해
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> save(@Valid @RequestBody CreateScheduleRequestDto requestDto){
         ScheduleResponseDto scheduleResponseDto = scheduleService.save(requestDto.getMemberId(), requestDto.getTitle(), requestDto.getDescription());

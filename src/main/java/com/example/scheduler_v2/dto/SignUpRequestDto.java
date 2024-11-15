@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class SignUpRequestDto {
 
     @NotBlank
@@ -17,4 +16,10 @@ public class SignUpRequestDto {
     private String email;
     @NotBlank
     private String password;
+
+    public SignUpRequestDto(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }

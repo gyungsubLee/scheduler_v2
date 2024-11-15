@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-@AllArgsConstructor
 public class CreateScheduleRequestDto {
 
     @NotBlank
@@ -19,4 +18,10 @@ public class CreateScheduleRequestDto {
     private String title;
     @NotNull
     private String description;
+
+    public CreateScheduleRequestDto(Long memberId, String title, String description) {
+        this.memberId = memberId;
+        this.title = title;
+        this.description = description;
+    }
 }

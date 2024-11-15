@@ -4,9 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class MemberResponseDto {
 
     private String username;
     private String email;
+
+    public MemberResponseDto(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
 }
