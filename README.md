@@ -12,4 +12,15 @@
 
 <br/>
 
-### API  - 진행 중 
+### 회원 API
+
+![](img/회원API.png)
+
+<br/>
+
+### 일정 API
+![](img/일정API.png)
+
+
+
+<br/><br/>
