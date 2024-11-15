@@ -1,7 +1,9 @@
 package com.example.scheduler_v2.service;
 
 import com.example.scheduler_v2.dto.ScheduleResponseDto;
+import com.example.scheduler_v2.entity.Member;
 import com.example.scheduler_v2.entity.Schedule;
+import com.example.scheduler_v2.repository.MemberRepository;
 import com.example.scheduler_v2.repository.ScheduleRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +16,15 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final MemberRepository memberRepository;
 
-    public ScheduleResponseDto save(String title, String description) {
+    public ScheduleResponseDto save(Long memberId, String title, String description) {
+
+        Member findMember = memberRepository.findByIdOrElseThrow(memberId);
 
         Schedule schedule = new Schedule(title, description);
+        schedule.setMember(findMember);
+
         scheduleRepository.save(schedule);
 
         return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getDescriptiom(), schedule.getCreatedAt(), schedule.getModifiedAt());
