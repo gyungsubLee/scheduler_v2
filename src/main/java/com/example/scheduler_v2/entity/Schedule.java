@@ -19,6 +19,10 @@ public class Schedule extends BaseEntity{
 
     private String descriptiom;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     public Schedule(String title, String descriptiom) {
         this.title = title;
         this.descriptiom = descriptiom;
@@ -28,4 +32,11 @@ public class Schedule extends BaseEntity{
         this.title = title;
         this.descriptiom = descriptiom;
     }
+
+    // 연관관계 메서드
+    public void setMember ( Member member ){
+        this.member = member;
+        member.getScheduleList().add(this);
+    }
+
 }
