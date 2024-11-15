@@ -27,4 +27,10 @@ public class Member extends BaseEntity{
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Schedule> scheduleList = new ArrayList<>();
+
+    public Member(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }
