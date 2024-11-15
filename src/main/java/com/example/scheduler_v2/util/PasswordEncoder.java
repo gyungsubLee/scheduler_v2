@@ -3,7 +3,6 @@ package com.example.scheduler_v2.util;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
-@Component
 public class PasswordEncoder {
 
     public static String encode(String rawPassword) {
