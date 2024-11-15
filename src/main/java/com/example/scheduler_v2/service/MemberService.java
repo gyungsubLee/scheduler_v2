@@ -4,6 +4,7 @@ import com.example.scheduler_v2.dto.MemberResponseDto;
 import com.example.scheduler_v2.dto.SignUpResponseDto;
 import com.example.scheduler_v2.entity.Member;
 import com.example.scheduler_v2.repository.MemberRepository;
+import com.example.scheduler_v2.util.PasswordUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,10 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public SignUpResponseDto signUp(String username, String email, String password) {
-        Member member = new Member(username, email, password);
+
+        // 비밀번호 해상 후 저장
+        String hashedPassword = PasswordUtil.hashPassword(password);
+        Member member = new Member(username, email, hashedPassword);
 
         Member saveMember = memberRepository.save(member);
 
@@ -27,6 +31,8 @@ public class MemberService {
 
         return new MemberResponseDto(findMember.getUsername(), findMember.getEmail());
     }
+
+    public
 
     @Transactional
     public MemberResponseDto updateMember(Long id, String username) {
