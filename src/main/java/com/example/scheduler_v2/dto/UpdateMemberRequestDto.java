@@ -11,6 +11,6 @@ import lombok.Getter;
 public class UpdateMemberRequestDto {
 
     @NotBlank
-    @Size(max = 4)
+    @Size(max = 4, message = "이름은 4글자 이내로 입력해 주세요")
     private String username;
 }
