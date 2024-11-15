@@ -1,10 +1,7 @@
 package com.example.scheduler_v2.controller;
 
 
-import com.example.scheduler_v2.dto.MemberResponseDto;
-import com.example.scheduler_v2.dto.ScheduleResponseDto;
-import com.example.scheduler_v2.dto.SignUpRequestDto;
-import com.example.scheduler_v2.dto.SignUpResponseDto;
+import com.example.scheduler_v2.dto.*;
 import com.example.scheduler_v2.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +31,18 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> findById(@PathVariable Long id){
 
         MemberResponseDto memberResponseDto = memberService.findById(id);
+
+        return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
+    }
+
+    // TODO
+    // 포스트맨 테스트 시, 400 Bad Request
+    @PatchMapping("/{id}")
+    public ResponseEntity<MemberResponseDto> updateMember(
+            @PathVariable Long id,
+            @RequestBody UpdateMemberRequestDto requestDto ){
+
+        MemberResponseDto memberResponseDto = memberService.updateMember(id, requestDto.getUsername());
 
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
     }
