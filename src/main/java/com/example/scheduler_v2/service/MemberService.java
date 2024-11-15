@@ -28,12 +28,14 @@ public class MemberService {
         return new SignUpResponseDto(saveMember.getId(), saveMember.getUsername(), saveMember.getEmail());
     }
 
-    public void login(String email, String password) {
+    public Member login(String email, String password) {
         Member findMember = memberRepository.findByEmailOrElseThrow(email);
 
         if(!PasswordEncoder.matches(password, findMember.getPassword())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
+
+        return findMember;
     }
 
 

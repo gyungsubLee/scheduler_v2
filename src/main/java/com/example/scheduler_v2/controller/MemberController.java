@@ -2,7 +2,10 @@ package com.example.scheduler_v2.controller;
 
 
 import com.example.scheduler_v2.dto.*;
+import com.example.scheduler_v2.entity.Member;
 import com.example.scheduler_v2.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,12 +32,16 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginRequestDto requestDto) {
+    public ResponseEntity<String> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest request) {
 
-        memberService.login(requestDto.getEmail(), requestDto.getPassword());
+        Member loginedMember = memberService.login(requestDto.getEmail(), requestDto.getPassword());
+
+        HttpSession session = request.getSession();
+        session.setAttribute("SESSION_KEY", loginedMember.getId());
 
         return ResponseEntity.ok().body("정상적으로 로그인 되었습니다.");
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<MemberResponseDto> findById(@PathVariable Long id) {
