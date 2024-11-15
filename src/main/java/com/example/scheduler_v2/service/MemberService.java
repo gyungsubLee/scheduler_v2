@@ -1,5 +1,6 @@
 package com.example.scheduler_v2.service;
 
+import com.example.scheduler_v2.dto.MemberResponseDto;
 import com.example.scheduler_v2.dto.SignUpResponseDto;
 import com.example.scheduler_v2.entity.Member;
 import com.example.scheduler_v2.repository.MemberRepository;
@@ -18,5 +19,11 @@ public class MemberService {
         Member saveMember = memberRepository.save(member);
 
         return new SignUpResponseDto(saveMember.getId(), saveMember.getUsername(), saveMember.getEmail());
+    }
+
+    public MemberResponseDto findById(Long id) {
+        Member findMember = memberRepository.findByIdOrElseThrow(id);
+
+        return new MemberResponseDto(findMember.getUsername(), findMember.getEmail());
     }
 }
