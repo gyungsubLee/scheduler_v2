@@ -37,4 +37,11 @@ public class MemberService {
 
         return new MemberResponseDto(findMember.getUsername(), findMember.getEmail());
     }
+
+    public void delete(Long id) {
+
+        Member findMember = memberRepository.findByIdOrElseThrow(id);
+
+        memberRepository.delete(findMember);
+    }
 }
