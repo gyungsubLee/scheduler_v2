@@ -44,8 +44,7 @@ public class MemberController {
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
     }
 
-    // TODO
-    // 포스트맨 테스트 시, 400 Bad Request
+    // FIXME: 포스트맨 테스트 시 Bad Request(400)가 발생됨 ( 이유 파악 못함 )
     @PatchMapping("/{id}")
     public ResponseEntity<MemberResponseDto> updateMember(
             @PathVariable Long id,
