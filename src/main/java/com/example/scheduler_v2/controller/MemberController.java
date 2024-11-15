@@ -42,6 +42,15 @@ public class MemberController {
         return ResponseEntity.ok().body("정상적으로 로그인 되었습니다.");
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();;  // 세션 무효화
+        }
+        return ResponseEntity.ok("로그아웃 성공");
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<MemberResponseDto> findById(@PathVariable Long id) {
@@ -50,6 +59,7 @@ public class MemberController {
 
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
     }
+
 
     // FIXME: 포스트맨 테스트 시 Bad Request(400)가 발생됨 ( 이유 파악 못함 )
     @PatchMapping("/{id}")
